@@ -33,14 +33,6 @@ class SettingsViewModel @Inject constructor(
     val elapsedTime = mutableIntStateOf(0)
     private var timerJob: Job? = null
 
-    private val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
-    private val maxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
-
-    init {
-        val currentVol = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
-        updateVolume((currentVol * 100) / maxVolume)
-    }
-
     fun startTimer(totalTime: Int) {
         timerJob?.cancel()
         elapsedTime.intValue = 0
@@ -58,21 +50,7 @@ class SettingsViewModel @Inject constructor(
         elapsedTime.intValue = 0
     }
 
-    fun updateVolume(newVolumePercent: Int) {
-        _uiState.value = _uiState.value.copy(volume = newVolumePercent)
-        val newVol = (newVolumePercent * maxVolume) / 100
-        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, newVol, 0)
-    }
-
     fun toggleChime(enabled: Boolean) {
         _uiState.value = _uiState.value.copy(isChimeEnabled = enabled)
-    }
-
-    fun toggleCustomChime(enabled: Boolean) {
-        _uiState.value = _uiState.value.copy(isCustomChimeEnabled = enabled)
-    }
-
-    fun updateRepeatEvery(value: String) {
-        _uiState.value = _uiState.value.copy(repeatEvery = value)
     }
 }
