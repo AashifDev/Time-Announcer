@@ -1,6 +1,6 @@
 package com.dzo.timeannouncer.domain.repeat_usecase
 
-import com.dzo.timeannouncer.data.repeat_repository.RepeatOptionRepository
+import com.dzo.timeannouncer.data.repository.repeat_repository.RepeatOptionRepository
 import com.dzo.timeannouncer.domain.model.RepeatOption
 
 import javax.inject.Inject

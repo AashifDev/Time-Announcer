@@ -4,6 +4,7 @@ plugins {
     id ("kotlin-kapt")
     id ("com.google.dagger.hilt.android")
     id ("kotlin-parcelize")
+    id ("kotlinx-serialization")
 }
 
 android {
@@ -71,6 +72,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
+    implementation("com.google.code.gson:gson:2.10.1")
     //Splash Api
     implementation (libs.androidx.core.splashscreen)
 

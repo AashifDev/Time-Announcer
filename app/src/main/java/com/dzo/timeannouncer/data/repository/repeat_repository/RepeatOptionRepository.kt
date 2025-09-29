@@ -1,4 +1,4 @@
-package com.dzo.timeannouncer.data.repeat_repository
+package com.dzo.timeannouncer.data.repository.repeat_repository
 
 import com.dzo.timeannouncer.domain.model.RepeatOption
 import kotlinx.coroutines.flow.Flow

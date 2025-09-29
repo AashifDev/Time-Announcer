@@ -1,7 +1,7 @@
-package com.dzo.timeannouncer.data.repeat_repository
+package com.dzo.timeannouncer.data.repository.repeat_repository
 
 import com.dzo.timeannouncer.domain.model.RepeatOption
-import com.dzo.timeannouncer.utils.PreferenceManager
+import com.dzo.timeannouncer.data.local_data_source.PreferenceManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
@@ -13,12 +13,12 @@ class RepeatOptionRepositoryImpl  @Inject constructor(
 ): RepeatOptionRepository {
 
     private val options = listOf(
-        RepeatOption("2 Minutes"),
-        RepeatOption("5 Minutes"),
-        RepeatOption("10 Minutes"),
-        RepeatOption("15 Minutes"),
-        RepeatOption("30 Minutes"),
-        RepeatOption("1 Hour")
+        RepeatOption("2 Minutes",2),
+        RepeatOption("5 Minutes", 5),
+        RepeatOption("10 Minutes",10),
+        RepeatOption("15 Minutes",15),
+        RepeatOption("30 Minutes",30),
+        RepeatOption("1 Hour",60)
     )
 
     private var selectedOption: RepeatOption? = null
@@ -27,14 +27,17 @@ class RepeatOptionRepositoryImpl  @Inject constructor(
 
     override suspend fun setSelectedOption(option: RepeatOption) {
         selectedOption = option
-        preferenceManager.saveSelectedOption(option.title)
+        preferenceManager.saveSelectedRepeatOption(option)
     }
 
     //override fun getSelectedOption(): RepeatOption? = selectedOption
 
-    override fun getSelectedOption(): Flow<RepeatOption?>{
-        return preferenceManager.selectedOption.map {title->
-            options.find { it.title == title }
+    override fun getSelectedOption(): Flow<RepeatOption?> {
+        return preferenceManager.selectedRepeatOption.map { savedOption ->
+            savedOption?.let { option ->
+                options.find { it.title == option.title } ?: option
+            }
         }
     }
+
 }

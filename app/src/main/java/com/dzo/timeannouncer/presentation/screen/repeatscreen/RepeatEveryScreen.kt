@@ -1,5 +1,6 @@
 package com.dzo.timeannouncer.presentation.screen.repeatscreen
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -22,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -34,6 +36,7 @@ fun RepeatEveryScreen(navController: NavHostController) {
     val options = viewModel.options
     val selectedOption by viewModel.selectedOption.collectAsState()
 
+    val context = LocalContext.current
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -70,7 +73,11 @@ fun RepeatEveryScreen(navController: NavHostController) {
                             .padding(16.dp),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(option.title)
+                        Text(
+                            option.title,
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = if (selectedOption == option) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface
+                        )
                         if (selectedOption == option) {
                             Icon(
                                 imageVector = Icons.Default.Check, contentDescription = "Selected",

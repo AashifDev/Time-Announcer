@@ -7,19 +7,24 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.isActive
 
-@Composable
+/*@Composable
 fun CircularTimerProgress(elapsed: Int, total: Int, isRunning: Boolean) {
     // Calculate target progress (0f..1f)
     val targetProgress = if (total > 0) elapsed / total.toFloat() else 0f
@@ -38,17 +43,56 @@ fun CircularTimerProgress(elapsed: Int, total: Int, isRunning: Boolean) {
             .fillMaxSize()
             .clip(CircleShape)
             .background(Color.White)
-            .padding(1.dp),
+            .padding(2.dp),
         contentAlignment = Alignment.Center
     ) {
         CircularProgressIndicator(
             progress = { progress },
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.primary,
-            strokeWidth = 12.dp,
+            strokeWidth = 10.dp,
             trackColor = Color(0xFFE6FAFF),
             strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
         )
     }
-}
+}*/
 
+@Composable
+fun CircularTimerProgress(elapsed: Int, total: Int, isRunning: Boolean) {
+    val progressAnim = remember { androidx.compose.animation.core.Animatable(0f) }
+
+    LaunchedEffect(isRunning, total) {
+        while (isRunning && isActive) {
+            progressAnim.snapTo(0f)
+            for (second in 0..total) {
+                val target = second.toFloat() / total
+                progressAnim.animateTo(
+                    target,
+                    animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
+                )
+                if (!isRunning) {
+                    progressAnim.snapTo(0f)
+                    break
+                }
+            }
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .size(100.dp)
+            .clip(CircleShape)
+            .background(Color.White)
+            .padding(2.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            progress = { progressAnim.value },
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.primary,
+            strokeWidth = 10.dp,
+            trackColor = Color(0xFFD7F6FD),
+            strokeCap = StrokeCap.Round,
+        )
+    }
+}

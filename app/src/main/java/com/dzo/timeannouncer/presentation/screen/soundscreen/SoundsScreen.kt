@@ -10,11 +10,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.dzo.timeannouncer.presentation.screen.mainscreen.widget.MyAppBar
 import com.dzo.timeannouncer.presentation.screen.soundscreen.viewmodel.SoundOptionViewModel
@@ -22,7 +19,10 @@ import com.dzo.timeannouncer.presentation.screen.soundscreen.widget.Notification
 import com.dzo.timeannouncer.utils.Utils
 
 @Composable
-fun SoundScreen(navController: NavHostController) {
+fun SoundScreen(
+    navController: NavHostController,
+    soundOptionViewModel: SoundOptionViewModel
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -44,7 +44,7 @@ fun SoundScreen(navController: NavHostController) {
             modifier = Modifier.padding(paddingValues)
         ) {
             val context = LocalContext.current
-            NotificationSoundList(options,viewModel,selectedOption) { sound ->
+            NotificationSoundList(soundOptionViewModel) { sound ->
                 Utils().playSound(context, sound)
             }
         }

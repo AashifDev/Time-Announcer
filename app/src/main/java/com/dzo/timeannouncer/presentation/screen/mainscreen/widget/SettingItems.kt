@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
@@ -36,12 +37,17 @@ fun SettingItem(
             modifier = Modifier.padding(8.dp)
         ) {
             if (icon != null) {
-                Icon(imageVector = icon, contentDescription = null)
+                Icon(
+                    imageVector = icon,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.primary
+                )
                 Spacer(Modifier.width(12.dp))
             }
             Spacer(Modifier.width(12.dp))
-            Text(title, style = MaterialTheme.typography.bodyLarge)
+            Text(title, style = MaterialTheme.typography.bodyLarge,
+                )
         }
-        Text(value)
+        Text(value,fontWeight = FontWeight.Bold)
     }
 }

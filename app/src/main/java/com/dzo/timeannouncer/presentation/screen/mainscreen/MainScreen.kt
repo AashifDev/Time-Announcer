@@ -6,32 +6,30 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.dzo.timeannouncer.presentation.screen.mainscreen.viewmodel.SettingsViewModel
 import com.dzo.timeannouncer.presentation.screen.mainscreen.widget.GeneralSettings
 import com.dzo.timeannouncer.presentation.screen.mainscreen.widget.Header
 import com.dzo.timeannouncer.presentation.screen.repeatscreen.viewmodel.RepeatOptionsViewModel
 import com.dzo.timeannouncer.presentation.screen.soundscreen.viewmodel.SoundOptionViewModel
-import com.dzo.timeannouncer.presentation.viewmodel.SettingsViewModel
 
 @Composable
 fun MainScreen(
     navController: NavHostController,
-    viewModel: SettingsViewModel,
-    soundOptionViewModel: SoundOptionViewModel
+    settingsViewModel: SettingsViewModel,
+    soundOptionViewModel: SoundOptionViewModel,
+    repeatOptionsViewModel1: RepeatOptionsViewModel
 ) {
-    val state by viewModel.uiState.collectAsState()
-    val totalTime = 10
-    val elapsed by remember { viewModel.elapsedTime }
+    val uiState by settingsViewModel.uiState.collectAsState()
+    //val totalTime = 10
+    //val elapsed by remember { settingsViewModel.elapsedTime }
 
     val repeatOptionsViewModel: RepeatOptionsViewModel = hiltViewModel()
-    val options = repeatOptionsViewModel.options
     val selectedOption by repeatOptionsViewModel.selectedOption.collectAsState()
 
-    val soundOptions = soundOptionViewModel.options
     val selectedSoundOption by soundOptionViewModel.selectedOption.collectAsState()
 
     Column(
@@ -41,12 +39,12 @@ fun MainScreen(
     ) {
 
         //Header Card
-        Header(state,elapsed,totalTime,viewModel)
+        Header(uiState,settingsViewModel,repeatOptionsViewModel)
 
         Spacer(Modifier.height(20.dp))
 
         //General settings
-        GeneralSettings( viewModel,navController,selectedOption,options,soundOptions,selectedSoundOption)
+        GeneralSettings(navController,selectedOption, selectedSoundOption)
 
         Spacer(Modifier.height(16.dp))
 

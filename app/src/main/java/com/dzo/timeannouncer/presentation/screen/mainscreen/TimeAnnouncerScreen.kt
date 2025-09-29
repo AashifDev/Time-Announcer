@@ -17,16 +17,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.dzo.timeannouncer.presentation.viewmodel.SettingsViewModel
+import com.dzo.timeannouncer.presentation.screen.mainscreen.viewmodel.SettingsViewModel
 import com.dzo.timeannouncer.presentation.screen.mainscreen.widget.MyAppBar
+import com.dzo.timeannouncer.presentation.screen.repeatscreen.viewmodel.RepeatOptionsViewModel
 import com.dzo.timeannouncer.presentation.screen.soundscreen.viewmodel.SoundOptionViewModel
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TimeAnnouncerScreen(navController: NavHostController) {
+fun TimeAnnouncerScreen(
+    navController: NavHostController,
+    settingsViewModel: SettingsViewModel,
+    soundOptionViewModel: SoundOptionViewModel,
+    repeatOptionsViewModel: RepeatOptionsViewModel
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         containerColor = MaterialTheme.colorScheme.background,
@@ -44,9 +49,7 @@ fun TimeAnnouncerScreen(navController: NavHostController) {
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            val viewModel: SettingsViewModel = hiltViewModel()
-            val soundOptionViewModel: SoundOptionViewModel = hiltViewModel()
-            MainScreen(navController,viewModel,soundOptionViewModel)
+            MainScreen(navController,settingsViewModel,soundOptionViewModel,repeatOptionsViewModel)
         }
     }
 }

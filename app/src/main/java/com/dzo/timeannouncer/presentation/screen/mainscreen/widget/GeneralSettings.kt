@@ -30,17 +30,12 @@ import com.dzo.timeannouncer.domain.model.NotificationSound
 import com.dzo.timeannouncer.domain.model.RepeatOption
 import com.dzo.timeannouncer.presentation.navgraph.AppRoutes
 import com.dzo.timeannouncer.presentation.screen.soundscreen.viewmodel.SoundOptionViewModel
-import com.dzo.timeannouncer.presentation.viewmodel.MainScreenUiState
-import com.dzo.timeannouncer.presentation.viewmodel.SettingsViewModel
 
 
 @Composable
 fun GeneralSettings(
-    viewModel: SettingsViewModel,
     navController: NavHostController,
     selectedOption: RepeatOption?,
-    options: List<RepeatOption>,
-    soundOptions: List<NotificationSound>,
     selectedSoundOption: NotificationSound?
 ) {
     val soundViewModel: SoundOptionViewModel = hiltViewModel()

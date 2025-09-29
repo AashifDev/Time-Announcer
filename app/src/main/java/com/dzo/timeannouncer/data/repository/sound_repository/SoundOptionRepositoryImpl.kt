@@ -1,16 +1,14 @@
-package com.dzo.timeannouncer.data.sound_repository
+package com.dzo.timeannouncer.data.repository.sound_repository
 
 import android.content.Context
-import androidx.compose.ui.platform.LocalContext
 import com.dzo.timeannouncer.R
 import com.dzo.timeannouncer.domain.model.NotificationSound
-import com.dzo.timeannouncer.utils.PreferenceManager
+import com.dzo.timeannouncer.data.local_data_source.PreferenceManager
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
-import kotlin.time.Duration.Companion.nanoseconds
 
 @Singleton
 class SoundOptionRepositoryImpl @Inject constructor(
@@ -21,10 +19,14 @@ class SoundOptionRepositoryImpl @Inject constructor(
     val soundIds = listOf(
         R.raw.long_pop,
         R.raw.pop_up_alert,
-        R.raw.long_pop,
-        R.raw.pop_up_alert,
-        R.raw.long_pop,
-        R.raw.pop_up_alert,
+        R.raw.door_opens,
+        R.raw.smbw_yoshi,
+        R.raw.balloon_get,
+        R.raw.mario_starwarp,
+        R.raw.smw_power_up,
+        R.raw.super_mario_jump,
+        R.raw.super_mario_world,
+        R.raw.super_mario_world_14,
     )
 
     private var selectedSound: NotificationSound? = null

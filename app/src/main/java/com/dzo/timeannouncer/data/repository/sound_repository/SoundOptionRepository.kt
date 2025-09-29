@@ -1,4 +1,4 @@
-package com.dzo.timeannouncer.data.sound_repository
+package com.dzo.timeannouncer.data.repository.sound_repository
 
 import com.dzo.timeannouncer.domain.model.NotificationSound
 import kotlinx.coroutines.flow.Flow
