@@ -1,4 +1,4 @@
-package com.dzo.timeannouncer.presentation.screen.mainscreen.widget
+package com.dzo.timeannouncer.presentation.screen.time_announcer_screen.widget
 
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
@@ -57,24 +57,24 @@ fun CircularTimerProgress(elapsed: Int, total: Int, isRunning: Boolean) {
     }
 }*/
 
+
 @Composable
 fun CircularTimerProgress(elapsed: Int, total: Int, isRunning: Boolean) {
     val progressAnim = remember { androidx.compose.animation.core.Animatable(0f) }
 
     LaunchedEffect(isRunning, total) {
         while (isRunning && isActive) {
-            progressAnim.snapTo(0f)
+            progressAnim.snapTo(elapsed.toFloat() / total)
             for (second in 0..total) {
                 val target = second.toFloat() / total
                 progressAnim.animateTo(
                     target,
                     animationSpec = tween(durationMillis = 1000, easing = LinearEasing)
                 )
-                if (!isRunning) {
-                    progressAnim.snapTo(0f)
-                    break
-                }
             }
+        }
+        if (!isRunning) {
+            progressAnim.snapTo(0f)
         }
     }
 
@@ -96,3 +96,54 @@ fun CircularTimerProgress(elapsed: Int, total: Int, isRunning: Boolean) {
         )
     }
 }
+
+
+/*
+
+@Composable
+fun CircularTimerProgress(
+    elapsed: Int,
+    total: Int,
+    isRunning: Boolean
+) {
+    val progressAnim = remember { Animatable(0f) }
+
+    LaunchedEffect(elapsed, isRunning, total) {
+        while (isRunning && isActive){
+            if (total > 0) {
+                // prevent invalid state
+                val safeElapsed = if (elapsed > total) 0 else elapsed
+                val target = safeElapsed.toFloat() / total
+
+                progressAnim.animateTo(
+                    target,
+                    animationSpec = tween(durationMillis = 500, easing = LinearEasing)
+                )
+            } else {
+                progressAnim.snapTo(0f)
+            }
+        }
+
+    }
+
+    Box(
+        modifier = Modifier
+            .size(100.dp)
+            .clip(CircleShape)
+            .background(Color.White)
+            .padding(2.dp),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            progress = { progressAnim.value },
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.primary,
+            strokeWidth = 10.dp,
+            trackColor = Color(0xFFD7F6FD),
+            strokeCap = StrokeCap.Round,
+        )
+    }
+}
+
+*/
+

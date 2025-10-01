@@ -13,12 +13,15 @@ class RepeatOptionRepositoryImpl  @Inject constructor(
 ): RepeatOptionRepository {
 
     private val options = listOf(
-        RepeatOption("2 Minutes",2),
-        RepeatOption("5 Minutes", 5),
-        RepeatOption("10 Minutes",10),
-        RepeatOption("15 Minutes",15),
-        RepeatOption("30 Minutes",30),
-        RepeatOption("1 Hour",60)
+        RepeatOption("5 Second",5),
+        RepeatOption("10 Second",10),
+        RepeatOption("1 Minutes",60),
+        RepeatOption("2 Minutes",120),
+        RepeatOption("5 Minutes", 300),
+        RepeatOption("10 Minutes",600),
+        RepeatOption("15 Minutes",900),
+        RepeatOption("30 Minutes",1800),
+        RepeatOption("1 Hour",3600)
     )
 
     private var selectedOption: RepeatOption? = null

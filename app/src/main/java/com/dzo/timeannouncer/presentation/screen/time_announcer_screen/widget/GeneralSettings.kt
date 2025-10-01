@@ -1,4 +1,4 @@
-package com.dzo.timeannouncer.presentation.screen.mainscreen.widget
+package com.dzo.timeannouncer.presentation.screen.time_announcer_screen.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.dzo.timeannouncer.presentation.screen.mainscreen.model
+package com.dzo.timeannouncer.presentation.screen.time_announcer_screen.model
 
 import com.dzo.timeannouncer.domain.model.Settings
 

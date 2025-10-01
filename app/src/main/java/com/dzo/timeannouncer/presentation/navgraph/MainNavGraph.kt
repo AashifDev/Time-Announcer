@@ -1,11 +1,12 @@
 package com.dzo.timeannouncer.presentation.navgraph
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.dzo.timeannouncer.presentation.screen.mainscreen.TimeAnnouncerScreen
-import com.dzo.timeannouncer.presentation.screen.mainscreen.viewmodel.SettingsViewModel
+import com.dzo.timeannouncer.presentation.screen.time_announcer_screen.TimeAnnouncerScreen
+import com.dzo.timeannouncer.presentation.screen.time_announcer_screen.viewmodel.SettingsViewModel
 import com.dzo.timeannouncer.presentation.screen.repeatscreen.RepeatEveryScreen
 import com.dzo.timeannouncer.presentation.screen.repeatscreen.viewmodel.RepeatOptionsViewModel
 import com.dzo.timeannouncer.presentation.screen.soundscreen.SoundScreen
@@ -15,11 +16,13 @@ import com.dzo.timeannouncer.presentation.screen.vibrationscreen.VibrationScreen
 @Composable
 fun MainNavGraph(
     startDestination: String,
-    navController: NavHostController,
-    soundOptionViewModel: SoundOptionViewModel,
-    settingsViewModel: SettingsViewModel,
-    repeatOptionsViewModel: RepeatOptionsViewModel,
+    navController: NavHostController
 ) {
+    val settingsViewModel: SettingsViewModel = hiltViewModel()
+    val soundOptionViewModel: SoundOptionViewModel = hiltViewModel()
+    val repeatOptionsViewModel: RepeatOptionsViewModel = hiltViewModel()
+
+
     NavHost(
         navController = navController,
         startDestination = startDestination

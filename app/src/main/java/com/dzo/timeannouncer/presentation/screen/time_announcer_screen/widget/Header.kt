@@ -143,12 +143,13 @@ fun Header(
     }
 }*/
 
-package com.dzo.timeannouncer.presentation.screen.mainscreen.widget
+package com.dzo.timeannouncer.presentation.screen.time_announcer_screen.widget
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -158,8 +159,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.dzo.timeannouncer.presentation.screen.mainscreen.model.MainScreenUiState
-import com.dzo.timeannouncer.presentation.screen.mainscreen.viewmodel.SettingsViewModel
+import com.dzo.timeannouncer.presentation.screen.time_announcer_screen.model.MainScreenUiState
+import com.dzo.timeannouncer.presentation.screen.time_announcer_screen.viewmodel.SettingsViewModel
 import com.dzo.timeannouncer.presentation.screen.repeatscreen.viewmodel.RepeatOptionsViewModel
 
 @Composable
@@ -170,6 +171,7 @@ fun Header(
 ) {
     val repeatEveryDuration by repeatOptionsViewModel.selectedOption.collectAsState()
     val context = LocalContext.current
+
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(containerColor = Color(0xFF00BFFF))
@@ -232,17 +234,17 @@ fun Header(
             Spacer(modifier = Modifier.width(8.dp))
 
             Switch(
-                checked = uiState.isTimerRunning,
+                checked = uiState.settings.isChimeEnabled,
                 onCheckedChange = { enabled ->
-                    settingsViewModel.toggleChime(enabled)
-                    if (enabled) {
+                    settingsViewModel.toggleChimee(enabled)
+                    /*if (enabled) {
                         // Start timer and enable repeat automatically
                         settingsViewModel.startTimerForMinutes(
-                            minutes = repeatEveryDuration?.value!!,
+                            minutes = repeatEveryDuration?.value ?: 5,
                         )
                     } else {
                         settingsViewModel.cancelTimer()
-                    }
+                    }*/
                 },
                 colors = SwitchDefaults.colors(
                     checkedThumbColor = MaterialTheme.colorScheme.primary,

@@ -12,7 +12,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.dzo.timeannouncer.presentation.screen.mainscreen.widget.MyAppBar
+import com.dzo.timeannouncer.presentation.screen.time_announcer_screen.widget.MyAppBar
 
 @Composable
 fun VibrationScreen(navController: NavHostController) {

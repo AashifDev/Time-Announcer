@@ -29,11 +29,12 @@ class PreferenceManager @Inject constructor(
         private val SELECTED_SOUND_KEY = stringPreferencesKey("selected_sound")
         // Keys
         private val KEY_CHIME = booleanPreferencesKey("key_chime")
-        private val KEY_REPEAT_MIN = intPreferencesKey("key_repeat_min")
+        private val KEY_ELAPSED = intPreferencesKey("key_elapsed")
+        /*private val KEY_REPEAT_MIN = intPreferencesKey("key_repeat_min")
         private val KEY_SOUND = stringPreferencesKey("key_sound")
         private val KEY_VIBRATION = stringPreferencesKey("key_vibration")
         private val KEY_VOLUME = intPreferencesKey("key_volume")
-        private val KEY_CUSTOM_CHIME = booleanPreferencesKey("key_custom_chime")
+        private val KEY_CUSTOM_CHIME = booleanPreferencesKey("key_custom_chime")*/
     }
 
 
@@ -55,16 +56,19 @@ class PreferenceManager @Inject constructor(
             prefs[SELECTED_SOUND_KEY] = value
         }
     }
-
+    val selectedSound: Flow<String?> = context.dataStore.data.map { prefs ->
+        prefs[SELECTED_SOUND_KEY]
+    }
     fun settingsFlow(): Flow<Settings> {
         return context.dataStore.data.map { prefs ->
             Settings(
                 isChimeEnabled = prefs[KEY_CHIME] ?: false,
-                repeatEveryMinutes = prefs[KEY_REPEAT_MIN] ?: 5,
+                elapsedSeconds = prefs[KEY_ELAPSED] ?: 0
+                /*repeatEveryMinutes = prefs[KEY_REPEAT_MIN] ?: 5,
                 sound = prefs[KEY_SOUND] ?: "Beep",
                 vibration = prefs[KEY_VIBRATION] ?: "None",
                 volume = prefs[KEY_VOLUME] ?: 100,
-                isCustomChimeEnabled = prefs[KEY_CUSTOM_CHIME] ?: false
+                isCustomChimeEnabled = prefs[KEY_CUSTOM_CHIME] ?: false*/
             )
         }
     }
@@ -73,26 +77,26 @@ class PreferenceManager @Inject constructor(
         val prefs = context.dataStore.data.first()
         return Settings(
             isChimeEnabled = prefs[KEY_CHIME] ?: false,
-            repeatEveryMinutes = prefs[KEY_REPEAT_MIN] ?: 5,
+            elapsedSeconds = prefs[KEY_ELAPSED] ?: 0
+            /*repeatEveryMinutes = prefs[KEY_REPEAT_MIN] ?: 5,
             sound = prefs[KEY_SOUND] ?: "Beep",
             vibration = prefs[KEY_VIBRATION] ?: "None",
             volume = prefs[KEY_VOLUME] ?: 100,
-            isCustomChimeEnabled = prefs[KEY_CUSTOM_CHIME] ?: false
+            isCustomChimeEnabled = prefs[KEY_CUSTOM_CHIME] ?: false*/
         )
     }
 
     suspend fun saveSettings(settings: Settings) {
         context.dataStore.edit { prefs ->
             prefs[KEY_CHIME] = settings.isChimeEnabled
-            prefs[KEY_REPEAT_MIN] = settings.repeatEveryMinutes
+            prefs[KEY_ELAPSED] = settings.elapsedSeconds
+            /*prefs[KEY_REPEAT_MIN] = settings.repeatEveryMinutes
             prefs[KEY_SOUND] = settings.sound
             prefs[KEY_VIBRATION] = settings.vibration
             prefs[KEY_VOLUME] = settings.volume
-            prefs[KEY_CUSTOM_CHIME] = settings.isCustomChimeEnabled
+            prefs[KEY_CUSTOM_CHIME] = settings.isCustomChimeEnabled*/
         }
     }
 
-    val selectedSound: Flow<String?> = context.dataStore.data.map { prefs ->
-        prefs[SELECTED_SOUND_KEY]
-    }
+
 }

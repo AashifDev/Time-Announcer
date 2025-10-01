@@ -13,7 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
-import com.dzo.timeannouncer.presentation.screen.mainscreen.widget.MyAppBar
+import com.dzo.timeannouncer.presentation.screen.time_announcer_screen.widget.MyAppBar
 import com.dzo.timeannouncer.presentation.screen.soundscreen.viewmodel.SoundOptionViewModel
 import com.dzo.timeannouncer.presentation.screen.soundscreen.widget.NotificationSoundList
 import com.dzo.timeannouncer.utils.Utils
